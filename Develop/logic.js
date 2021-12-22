@@ -1,9 +1,5 @@
 // variables to keep track of quiz state
-let isQuiz = " ";
 let timeLeft = 75;
-let flag = true;
-var timerId;
-
 var timerEl = document.getElementById('countdown');
 var startbuttonEl = document.getElementById("startbutton");
 var startpageEl = document.getElementById("startpage");
@@ -36,10 +32,22 @@ var questionArr = [{question: "Commonly used data types DO NOT include: ", answe
     //create new button for each choice
     //event listener for each choice
     //display on the page
-function pullQuestion (){
 
+    function getNextQuestion(){
+      let currentQuestion = questionArr[currentQuestionIndex];
+      questionEl.textContent = currentQuestion.question;
+      answersdivEl.innerHTML = "";
+      currentQuestion.answers.forEach(function(answer,idx)
+      {
+        let answerButton = document.createElement("button");
+        answerButton.setAttribute("class","choice");
+        answerButton.setAttribute("value",answer);
+        answerButton.textContent = idx + 1 + ". " + answer;
+        answerButton.onclick = questionClick;
+        answersdivEl.appendChild(answerButton);
+      });
+    
     };
-
 //function for the questionclick 
 
   //did the user guess right or wrong
@@ -47,14 +55,18 @@ function pullQuestion (){
   //display new time on the page
   //move to the next question
   //check if there are any questions left/you've run out
-  function questionclick (){
-    if (result === true){
-
-
-    }else{
-      timeLeft -= 6;
+  function questionClick (){
+  
+    //did the user guess right or wrong
+    //if (questionArr[answers] === questionArr[correctAnswer]){
+  
+    //}else{
+      //wrong guess decreases time
+      //timeLeft = timeLeft - 6;
       
-    }
+    //}
+    
+    //move to the next question
 
 
   };
@@ -65,12 +77,20 @@ function pullQuestion (){
   //shows final score
   //hides questions section
 function endQuiz (){
+  timeLeft = 0;
+  timerEl.textContent = "Time left: " + timeLeft;
 
 };
  //function for the clock 
   //updates time
   //checks if user ran out of time 
-
+  function periodicHandler(){
+    timeLeft--;
+    timerEl.textContent= "time left: " + timeLeft ;
+    if(timeLeft <=0){
+      endQuiz();
+    }
+  };
 //function to save the high score
   //get value of input box
   //make sure value isnt empty
@@ -78,42 +98,10 @@ function endQuiz (){
   //format new score object for current user 
   //save to localstorage
   //redirect to next page
-function highScore (){
-  if(inputbox != 0){
-
-  }
-
-
-};
 
 // user clicks button to submit initials
-function periodicHandler(){
-  timeLeft--;
-  timerEl.textContent= "time left: " + timeLeft ;
-  if(timeLeft <=0){
-    endQuiz();
-  }
-};
 
-function userClick(){
-  //to be done
-}
 
-function getNextQuestion(){
-  let currentQuestion = questionArr[currentQuestionIndex];
-  questionEl.textContent = currentQuestion.question;
-  answersdivEl.innerHTML = "";
-  currentQuestion.answers.forEach(function(answer,idx)
-  {
-    let answerButton = document.createElement("button");
-    answerButton.setAttribute("class","choice");
-    answerButton.setAttribute("value",answer);
-    answerButton.textContent = idx +1 +". " + answer;
-    answerButton.onclick = userClick;
-    answersdivEl.appendChild(answerButton);
-  });
-
-};
 // user clicks button to start quiz
 function startQuiz(){
   startpageEl.setAttribute("class","hide-me");
@@ -123,5 +111,4 @@ function startQuiz(){
   getNextQuestion();
 }
 
-//countdown();
 startbuttonEl.addEventListener("click",startQuiz)
