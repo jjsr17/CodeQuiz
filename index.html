@@ -4,16 +4,25 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta http-equiv="X-UA-Compatible" content="ie=edge" /> 
+        <title> Coding Quiz</title>
         <link rel="stylesheet" href="./Assets/css/style.css" />
     </head>
     <body>
-        <div class="highscorelink"> 
+        <!-- <div class="highscorelink"> 
         <a href="highscore.html" >High scores</a>
+    </div> -->
+
+        <div class="highScorePage hide">
+            <ol class="highScores"></ol>
+            <input>    
+            <button id="submit" type="submit" >Submit</button>
+
         </div>
+        <div class="quiz show">
         <div class="countdown" id="countdown">
             quiz not started
         </div>
-        
+        <button id ="score">Show High Scores</button>
         <div class="container">
         <div id="startpage">
         <p>Click to start quiz.</p>
@@ -25,6 +34,10 @@
             <div id="answers"class="answers"></div>
         </div>
         </div>
+
+    </div>
         <script src="./Develop/logic.js"></script>
+
+  
     </body>
 </html>
